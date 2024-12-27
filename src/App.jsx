@@ -1,7 +1,7 @@
 
 const App = () => {
   return (
-    <div className='text-indigo-400 font-mono font-bold'>App</div>
+    <div className=''>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia et illo, animi repudiandae fuga deserunt exercitationem officia ad possimus nulla sed repellendus modi, ab enim consequuntur minus voluptatem, eligendi necessitatibus!</div>
   )
 }
 

@@ -15,11 +15,14 @@
     "@stripe/react-stripe-js": "^3.1.1",
     "@stripe/stripe-js": "^5.3.0",
     "appwrite": "^16.0.2",
+    "classnames": "^2.5.1",
     "framer-motion": "^11.14.4",
+    "lucide-react": "^0.469.0",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-animate-on-scroll": "^2.1.9",
     "react-dom": "^18.3.1",
+    "react-helmet": "^6.1.0",
     "react-hook-form": "^7.54.1",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.0.2",
@@ -37,6 +40,7 @@
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.12.0",
     "postcss": "^8.4.49",
+    "prettier": "3.4.2",
     "tailwindcss": "^3.4.16",
     "vite": "^6.0.1"
   }
