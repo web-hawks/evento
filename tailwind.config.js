@@ -113,65 +113,194 @@ export default {
       },
       boxShadow: {
         elevation1:
-          '0px 1px 2px 0px rgba(0, 0, 0, 0.10), 0px 1px 3px 1px rgba(0, 0, 0, 0.05)',
+          '0px 1px 2px 0px rgba(0, 0, 0, 0.30), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
         elevation2:
-          '0px 2px 4px 0px rgba(0, 0, 0, 0.10), 0px 4px 6px 1px rgba(0, 0, 0, 0.05)',
+          '0px 1px 2px 0px rgba(0, 0, 0, 0.30), 0px 2px 6px 2px rgba(0, 0, 0, 0.15)',
         elevation3:
-          '0px 4px 8px 3px rgba(0, 0, 0, 0.10), 0px 6px 10px 2px rgba(0, 0, 0, 0.05)',
+          '0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.30)',
+        elevation4:
+          '0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.30)',
+        elevation5:
+          '0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.30)',
       },
       borderRadius: {
         none: '0',
-        sm: '4px',
-        md: '8px',
-        lg: '12px',
-        xl: '16px',
-        '2xl': '24px',
-        full: '9999px',
+        extraSmall: '4px',
+        small: '8px',
+        medium: '12px',
+        large: '16px',
+        extraLarge: '28px',
+        full: '1000px',
       },
       fontSize: {
-        display: [
-          '48px',
+        displayLarge: [
+          '57px',
           {
-            lineHeight: '56px',
-            fontWeight: '700',
-            letterSpacing: '-0.5px',
-          },
-        ],
-        heading: [
-          '32px',
-          {
-            lineHeight: '40px',
-            fontWeight: '600',
+            fontWeight: '400',
+            lineHeight: '64px',
             letterSpacing: '-0.25px',
           },
         ],
-        body: [
-          '16px',
+        displayMedium: [
+          '45px',
           {
-            lineHeight: '24px',
             fontWeight: '400',
+            lineHeight: '52px',
             letterSpacing: '0',
           },
         ],
-        small: [
+        displaySmall: [
+          '36px',
+          {
+            fontWeight: '400',
+            lineHeight: '44px',
+            letterSpacing: '0',
+          },
+        ],
+        headlineLarge: [
+          '32px',
+          {
+            fontWeight: '400',
+            lineHeight: '40px',
+            letterSpacing: '0',
+          },
+        ],
+        headlineMedium: [
+          '28px',
+          {
+            fontWeight: '400',
+            lineHeight: '36px',
+            letterSpacing: '0',
+          },
+        ],
+        headlineSmall: [
+          '24px',
+          {
+            fontWeight: '400',
+            lineHeight: '32px',
+            letterSpacing: '0',
+          },
+        ],
+        titleLarge: [
+          '22px',
+          {
+            fontWeight: '400',
+            lineHeight: '28px',
+            letterSpacing: '0',
+          },
+        ],
+        titleMedium: [
+          '16px',
+          {
+            fontWeight: '500',
+            lineHeight: '24px',
+            letterSpacing: '0.15px',
+          },
+        ],
+        titleSmall: [
           '14px',
           {
+            fontWeight: '500',
             lineHeight: '20px',
-            fontWeight: '400',
             letterSpacing: '0.1px',
           },
         ],
+        bodyLarge: [
+          '16px',
+          {
+            fontWeight: '400',
+            lineHeight: '24px',
+            letterSpacing: '0.5px',
+          },
+        ],
+        bodyMedium: [
+          '14px',
+          {
+            fontWeight: '400',
+            lineHeight: '20px',
+            letterSpacing: '0.25px',
+          },
+        ],
+        bodySmall: [
+          '12px',
+          {
+            fontWeight: '400',
+            lineHeight: '16px',
+            letterSpacing: '0.4px',
+          },
+        ],
+        labelLarge: [
+          '14px',
+          {
+            fontWeight: '500',
+            lineHeight: '20px',
+            letterSpacing: '0.1px',
+          },
+        ],
+        labelMedium: [
+          '12px',
+          {
+            fontWeight: '500',
+            lineHeight: '16px',
+            letterSpacing: '0.5px',
+          },
+        ],
+        labelSmall: [
+          '11px',
+          {
+            fontWeight: '500',
+            lineHeight: '16px',
+            letterSpacing: '0.5px',
+          },
+        ],
       },
-      spacing: {
-        0: '0px',
-        1: '4px',
-        2: '8px',
-        3: '12px',
-        4: '16px',
-        5: '20px',
-        6: '24px',
-        7: '28px',
-        8: '32px',
+      transitionDuration: {
+        short1: '50ms',
+        short2: '100ms',
+        short3: '150ms',
+        short4: '200ms',
+        medium1: '250ms',
+        medium2: '300ms',
+        medium3: '350ms',
+        medium4: '400ms',
+        long1: '450ms',
+        long2: '500ms',
+        long3: '550ms',
+        long4: '600ms',
+        extraLong1: '700ms',
+        extraLong2: '800ms',
+        extraLong3: '900ms',
+        extraLong4: '1000ms',
+      },
+      transitionDelay: {
+        short1: '50ms',
+        short2: '100ms',
+        short3: '150ms',
+        short4: '200ms',
+        medium1: '250ms',
+        medium2: '300ms',
+        medium3: '350ms',
+        medium4: '400ms',
+        long1: '450ms',
+        long2: '500ms',
+        long3: '550ms',
+        long4: '600ms',
+        extraLong1: '700ms',
+        extraLong2: '800ms',
+        extraLong3: '900ms',
+        extraLong4: '1000ms',
+      },
+      transitionTimingFunction: {
+        standard: 'cubic-bezier(0.2, 0, 0, 1)',
+        standardDecelerate: 'cubic-bezier(0, 0, 0, 1)',
+        standardAccelerate: 'cubic-bezier(0.3, 0, 1, 1)',
+        emphasized: 'cubic-bezier(0.2, 0, 0, 1.0)',
+        emphasizedDecelerate: 'cubic-bezier(0.05, 0.7, 0.1, 1)',
+        emphasizedAccelerate: 'cubic-bezier(0.3, 0, 0.8, 0.15)',
+        legacy: 'cubic-bezier(0.4, 0, 0.2, 1.0)',
+        legacyDecelerate: 'cubic-bezier(0, 0, 0.2, 1)',
+        legacyAccelerate: 'cubic-bezier(0.4, 0, 1, 1)',
+        linear: 'cubic-bezier(0, 0, 1, 1)',
       },
     },
   },

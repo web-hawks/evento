@@ -51,3 +51,51 @@
     dark:bg-dark-onBackground/15;
   }
 }
+
+@layer components{
+  .text-field-wrapper{
+    @apply relative;
+  }
+
+  .text-field{
+    @apply ring-1 ring-inset bg-inherit ring-light-outline dark:ring-dark-outline text-light-onSurface dark:text-dark-onSurface caret-light-primary dark:caret-dark-primary h-14 px-4 rounded-extraSmall transition-shadow duration-short3 ease-linear
+    
+    hover:ring-light-onSurface
+    dark:hover:ring-dark-onSurface
+    focus:ring-2
+    focus:ring-light-primary
+    dark:focus:ring-dark-primary
+    ;
+  }
+
+  .text-field::placeholder{
+    @apply opacity-0 transition-opacity;
+  }
+
+  .text-field:focus::placeholder{
+    @apply opacity-100;
+  }
+
+  .label-text{
+    @apply absolute text-labelLarge top-[18px] left-2 text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant bg-light-background dark:bg-dark-background px-2 origin-[center_left] pointer-events-none select-none transition-[color,transform] duration-short4 ease-standard;
+  }
+
+  .text-field-wrapper:hover .label-text{
+    @apply text-light-onSurface dark:text-dark-onSurface;
+  }
+
+  .text-field-wrapper:focus-within .label-text,
+  .text-field-wrapper:has(.text-field:not(:placeholder-shown)) .label-text
+  {
+    @apply translate-x-1 -translate-y-7 scale-[0.85];
+  }
+
+  .text-field-wrapper:focus-within .label-text{
+    @apply text-light-primary dark:text-dark-primary;
+  }
+
+  .text-field-wrapper .helper-text{
+    @apply text-bodySmall text-light-onSurface dark:text-dark-onSurface px-4 py-1
+  }
+
+}
