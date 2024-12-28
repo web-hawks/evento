@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/**
- * BASE
- */
+
 @layer base {
   a,
   img,
@@ -13,10 +11,7 @@
   }
 
   input {
-    @apply block
-    outline-none
-    bg-transparent
-    w-full;
+    @apply block w-full bg-transparent outline-none;
   }
 
   input[type='password'] {
@@ -28,27 +23,19 @@
   }
 
   body {
-    @apply bg-light-background 
-    dark:bg-dark-background 
-    text-light-onBackground
-    dark:text-dark-onBackground
-    font-body font-bold;
+    @apply bg-light-background font-body font-bold text-light-onBackground dark:bg-dark-background dark:text-dark-onBackground;
   }
 
   ::-webkit-scrollbar {
-    @apply w-2
-    h-2
-    rounded-full;
+    @apply h-2 w-2 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-transparent
-    rounded-full;
+    @apply rounded-full bg-transparent;
   }
 
   *:hover::-webkit-scrollbar-thumb {
-    @apply bg-light-onBackground/15
-    dark:bg-dark-onBackground/15;
+    @apply bg-light-onBackground/15 dark:bg-dark-onBackground/15;
   }
 }
 
@@ -58,14 +45,7 @@
   }
 
   .text-field{
-    @apply ring-1 ring-inset bg-inherit ring-light-outline dark:ring-dark-outline text-light-onSurface dark:text-dark-onSurface caret-light-primary dark:caret-dark-primary h-14 px-4 rounded-extraSmall transition-shadow duration-short3 ease-linear
-    
-    hover:ring-light-onSurface
-    dark:hover:ring-dark-onSurface
-    focus:ring-2
-    focus:ring-light-primary
-    dark:focus:ring-dark-primary
-    ;
+    @apply h-14 rounded-extraSmall bg-inherit px-4 text-light-onSurface caret-light-primary ring-1 ring-inset ring-light-outline transition-shadow duration-short3 ease-linear hover:ring-light-onSurface focus:ring-2 focus:ring-light-primary dark:text-dark-onSurface dark:caret-dark-primary dark:ring-dark-outline dark:hover:ring-dark-onSurface dark:focus:ring-dark-primary;
   }
 
   .text-field::placeholder{
@@ -95,7 +75,21 @@
   }
 
   .text-field-wrapper .helper-text{
-    @apply text-bodySmall text-light-onSurface dark:text-dark-onSurface px-4 py-1
+    @apply text-bodySmall text-light-error dark:text-dark-error px-4 py-1
   }
 
+  .link{
+    @apply transition-colors duration-short3 ease-standard hover:text-light-primary hover:underline dark:hover:text-dark-primary;
+  }
+
+}
+
+@layer utilities{
+  .img-box{
+    @apply bg-light-surfaceContainerHighest dark:bg-dark-surfaceContainerHighest overflow-hidden
+  }
+
+  .img-cover{
+    @apply object-cover w-full h-full
+  }
 }
