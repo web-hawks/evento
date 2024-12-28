@@ -86,7 +86,7 @@
 
 @layer utilities{
   .img-box{
-    @apply bg-light-surfaceContainerHighest dark:bg-dark-surfaceContainerHighest overflow-hidden
+    @apply bg-light-surfaceContainerHighest dark:bg-dark-surfaceContainerHighest
   }
 
   .img-cover{

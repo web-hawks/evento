@@ -9,11 +9,12 @@ import { useState } from "react"
 /**
  * Components
  */
-import { Banner, React } from "../assets/assets"
+import { React } from "../assets/assets"
 import PageTitle from "../components/PageTitle"
 import FieldText from "../components/FieldText"
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter"
 import Button from "../components/Button"
+import { BackgroundGradientAnimation } from "../components/ui/background-gradient-animation"
 
 
 
@@ -181,17 +182,19 @@ const Register = () => {
             &copy; 2024 WebHawks . All right reserved
           </p>
         </div>
-        <div className="img-box hidden lg:relative lg:block lg:overflow-hidden lg:rounded-large">
-          <img 
+          {/* <img 
             src={Banner} 
             alt="" 
-            className="img-cover" />
-          
-          <p className="absolute bottom-10 left-12 right-12 z-10 text-right text-displayLarge font-semibold leading-tight text-light-onSurface drop-shadow-sm 2xl:text-[72px]">
-            Bring your ideas to life with WebHawks 
-          </p>
+            className="img-cover" /> */}
+          <BackgroundGradientAnimation 
+            containerClassName="hidden lg:relative lg:block lg:overflow-hidden lg:rounded-large"
+          className="">
+            <p className="absolute bottom-10 left-12 right-12 z-10 text-right text-displayLarge font-semibold leading-tight text-light-onSurface drop-shadow-sm 2xl:text-[72px]">
+              Bring your ideas to life with WebHawks 
+            </p>
+          </BackgroundGradientAnimation>
 
-        </div>
+        
       </div>
     </>
   )
