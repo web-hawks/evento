@@ -2,9 +2,15 @@
 /**
  * Node Modules
  */
-import { Link } from "react-router-dom"
+import { Link, redirect } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { useState } from "react"
+
+/**
+ * Custom Modules
+ */
+import { account } from "../lib/appwrite"
+import generateID from "../utils/generateID"
 
 /**
  * Components
@@ -24,7 +30,40 @@ const Register = () => {
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     console.log(data);
-    setIsSubmitting(false);
+    try {
+      await account.create(
+        generateID(),
+        data.email,
+        data.password,
+        data.fullName
+      )
+        
+    } catch (error) {
+      console.error('Registration failed', error);
+      // Here you can add logic to show an error message to the user
+    } 
+    
+    // After Successfully creating an account, login the user and redirect to the home page
+    try {
+      // create a session for the new user with the provided email and password
+      await account.createEmailPasswordSession(
+        data.email,
+        data.password
+      );
+      
+      
+    } catch (error) {
+      
+      console.error('Login failed', error);
+      redirect('/login');
+    }
+    
+    
+    finally {
+      setIsSubmitting(false);
+    }
+
+    return redirect('/');
   }
   
 
@@ -48,7 +87,7 @@ const Register = () => {
             </p>
           
             <form 
-              onSubmit={handleSubmit(onSubmit)} 
+              onSubmit={handleSubmit(onSubmit)}
               method="POST"
               className="grid grid-cols-1 gap-4">
               <FieldText
