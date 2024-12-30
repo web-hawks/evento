@@ -2,18 +2,25 @@
 /**
  * Node Modules
  */
-import { Link } from "react-router-dom"
+import { Link, redirect } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { useState } from "react"
 
 /**
+ * Custom Modules
+ */
+import { account } from "../lib/appwrite"
+import generateID from "../utils/generateID"
+
+/**
  * Components
  */
-import { Banner, React } from "../assets/assets"
+import { React } from "../assets/assets"
 import PageTitle from "../components/PageTitle"
 import FieldText from "../components/FieldText"
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter"
 import Button from "../components/Button"
+import { BackgroundGradientAnimation } from "../components/ui/background-gradient-animation"
 
 
 
@@ -23,7 +30,40 @@ const Register = () => {
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     console.log(data);
-    setIsSubmitting(false);
+    try {
+      await account.create(
+        generateID(),
+        data.email,
+        data.password,
+        data.fullName
+      )
+        
+    } catch (error) {
+      console.error('Registration failed', error);
+      // Here you can add logic to show an error message to the user
+    } 
+    
+    // After Successfully creating an account, login the user and redirect to the home page
+    try {
+      // create a session for the new user with the provided email and password
+      await account.createEmailPasswordSession(
+        data.email,
+        data.password
+      );
+      
+      
+    } catch (error) {
+      
+      console.error('Login failed', error);
+      redirect('/login');
+    }
+    
+    
+    finally {
+      setIsSubmitting(false);
+    }
+
+    return redirect('/');
   }
   
 
@@ -31,30 +71,30 @@ const Register = () => {
     <>
       <PageTitle title="Create an account" />
 
-      <div className="relative w-screen h-dvh grid grid-cols-1 lg:gap-2 p-2 lg:grid-cols-[1fr,1.2fr]">
+      <div className="relative grid h-dvh w-screen grid-cols-1 p-2 lg:grid-cols-[1fr,1.2fr] lg:gap-2">
         <div className="flex flex-col p-2">
           <Link 
             to={"/"}
-            className="max-w-max w-16">
+            className="mx-auto mb-auto w-16 max-w-max lg:mx-0">
           <img src={React} 
-               className="" 
-               alt="Dark Logo" />
+               className="" alt="Dark Logo" />
           </Link>
-          <div className="flex flex-col max-w-[480px] w-full mx-auto gap-2">
+          <div className="mx-auto flex w-full max-w-[480px] flex-col gap-2">
 
-            <h2 className="font-heading text-displaySmall font-semibold text-light-onBackground dark:text-light-onPrimary text-center">Create an account</h2>
-            <p className="text-bodyLarge text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant text-center mt-1 mb-4 px-2">
+            <h2 className="text-center font-heading text-displaySmall font-semibold text-light-onBackground dark:text-light-onPrimary">Create an account</h2>
+            <p className="mb-4 mt-1 px-2 text-center text-bodyLarge text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant">
               Register Today and get access to all the features of our platform
             </p>
           
             <form 
-              onSubmit={handleSubmit(onSubmit)} 
+              onSubmit={handleSubmit(onSubmit)}
               method="POST"
               className="grid grid-cols-1 gap-4">
               <FieldText
                 label="Full Name"
                 name="fullName"
                 register={register}
+                required
                 errors={errors}
                 rules={{required: "Full name is required"}}
                 autoFocus={true}
@@ -64,6 +104,7 @@ const Register = () => {
                 label="Email"
                 name="email"
                 placeholder="Enter Your Email"
+                required
                 register={register}
                 rules={{
                   required: "Email is required",
@@ -79,6 +120,7 @@ const Register = () => {
                 label="Password"
                 name="password"
                 placeholder="Enter Your Password"
+                required
                 register={register}
                 errors={errors}
                 type="password"
@@ -99,6 +141,7 @@ const Register = () => {
                 label="Confirm Password"
                 name="confirmPassword"
                 placeholder="Confirm Your Password"
+                required={true}
                 register={register}
                 errors={errors}
                 type="password"
@@ -126,54 +169,71 @@ const Register = () => {
                 required: "Age is required"
               }}
               />
-              <div className="flex flex-col gap-4">
-                <label className="flex items-center">
-                  <input 
-                    type="checkbox"
-                    {...register("termsAccepted",{required: "You must accept the terms and conditions"})} />
-                    <span className="">
-                      I accept the <a href="#" className="">terms and conditions</a>
-                    </span>
+              <div className="flex max-w-md flex-col gap-4">
+                <label className="group flex cursor-pointer items-start space-x-3">
+                  <div className="relative flex items-center justify-center">
+                    <input
+                      type="checkbox"
+                      {...register("termsAccepted", { required: "You must accept the terms and conditions" })}
+                      className="peer sr-only"
+                    />
+                    <div className="h-6 w-6 rounded-md border-2 border-dark-primary transition-all duration-medium1 ease-legacy peer-checked:bg-light-primary dark:border-light-primary dark:peer-checked:bg-dark-primary">
+                      <svg
+                        className="hidden h-4 w-4 fill-current text-white peer-checked:block"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <span className="flex-grow text-sm text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant">
+                    I accept the <Link to='/terms' className="hover:underline">terms and conditions</Link>
+                  </span>
                 </label>
-                {
-                  errors.termsAccepted && (
-                    <p 
-                    className=""
-                    role="alert">
-                      {errors.termsAccepted.message}
-                    </p>
-                  )
-                }
+                {errors.termsAccepted && (
+                  <p
+                    className="pl-9 text-labelMedium italic text-light-error dark:text-dark-error"
+                    role="alert"
+                  >
+                    {errors.termsAccepted.message}
+                  </p>
+                )}
               </div>
+
+
+
               <Button
                 type="submit" 
-                className="h-10 flex justify-center items-center rounded-full text-labelLarge transition-shadow duration-short3 ease-standard hover:shadow-elevation2 focus:shadow-none"
+                className="flex h-10 items-center justify-center rounded-full text-labelLarge transition-all duration-medium3 ease-standard hover:bg-light-primaryContainer hover:text-light-onPrimaryContainer hover:shadow-elevation2 focus:shadow-none dark:hover:bg-dark-primaryContainer dark:hover:text-dark-onPrimaryContainer dark:hover:shadow-elevation2 dark:focus:shadow-none"
                 disabled={isSubmitting}
-                loading={isSubmitting}
                 >
                 {isSubmitting ? "Creating account..." : "Create account"}
               </Button>
               
             </form>
 
-            <p className="">Already have an account? <Link to={"/login"} className="">Log in</Link></p>
+            <p className="dark:text-dark-onSurfaceVarian mt-4 text-center text-bodyMedium text-light-onSurfaceVariant">Already have an account? 
+              <Link to={"/login"} className="link ms-1 inline-block text-light-onSurface dark:text-dark-onSurface">Log in</Link>
+            </p>
           </div>
 
-          <p className="">
+          <p className="mx-auto mt-auto text-bodyMedium text-light-onSurfaceVariant lg:mx-0 dark:text-dark-onSurfaceVariant">
             &copy; 2024 WebHawks . All right reserved
           </p>
         </div>
-        <div className="">
-          <img 
+          {/* <img 
             src={Banner} 
             alt="" 
-            className="bg-cover" />
-          
-          <p className="">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tort
-          </p>
+            className="img-cover" /> */}
+          <BackgroundGradientAnimation 
+            containerClassName="hidden lg:relative lg:block lg:overflow-hidden lg:rounded-large"
+          className="">
+            <p className="absolute bottom-10 left-12 right-12 z-10 text-right text-displayLarge font-semibold leading-tight text-light-onSurface drop-shadow-sm 2xl:text-[72px]">
+              Bring your ideas to life with WebHawks 
+            </p>
+          </BackgroundGradientAnimation>
 
-        </div>
+        
       </div>
     </>
   )

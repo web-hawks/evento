@@ -10,6 +10,7 @@ import { createBrowserRouter } from "react-router-dom";
  */
 import App from "../App";
 import Register from "../pages/Register";
+import Terms from "../pages/Terms";
 
 
 /**
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
         path: '/register',
         element: <Register />,
     },
+    {
+        path: '/terms',
+        element: <Terms />,
+    }
 ]);
 
 export default router;

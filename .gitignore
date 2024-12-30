@@ -1,3 +1,29 @@
+
+# Node
+node_modules
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Next.js
+.next
+
+# Pnpm
+.pnpm
+
+# Vite
+vite
+
+# React
+react-app-rewired
+
+# Environment
+.env
+
+# Cache
+.cache
+
+
 # Logs
 logs
 *.log
@@ -22,3 +48,18 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Git
+.git
+.gitignore
+
+# Build
+build
+build-ssr
+dist
+dist-ssr
+public
+
+# Misc
+.DS_Store
+Thumbs.db

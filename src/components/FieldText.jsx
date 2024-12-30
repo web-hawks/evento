@@ -27,6 +27,7 @@ const FieldText = ({
         type={type} 
         className={`text-field ${fieldClasses}`}
         id={name}
+        name={name}
         {...register(name, {...rules, required})}
         aria-invalid={errors[name] ? "true" : "false"}
         {...rest}
