@@ -70,7 +70,8 @@ const Register = () => {
           >
             <img
               src={React}
-              className='' alt='Dark Logo'
+              className=''
+              alt='Dark Logo'
             />
           </Link>
           <div className='mx-auto flex w-full max-w-[480px] flex-col gap-2'>
