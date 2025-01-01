@@ -55,9 +55,8 @@ const Register = () => {
     } finally {
       setIsSubmitting(false);
     }
-    
-    return redirect('/'); 
-    
+
+    return redirect('/');
   };
 
   return (
@@ -72,7 +71,8 @@ const Register = () => {
           >
             <img
               src={React}
-              className='' alt='Dark Logo'
+              className=''
+              alt='Dark Logo'
             />
           </Link>
           <div className='mx-auto flex w-full max-w-[480px] flex-col gap-2'>
@@ -228,20 +228,32 @@ const Register = () => {
               </Link>
             </p>
             <div className='relative my-8 h-px w-full bg-light-onSurfaceVariant dark:bg-dark-onSurfaceVariant'>
-              <span className='absolute left-1/2 -translate-x-1/2 -translate-y-1/2 transform bg-light-surface px-4 text-bodyMedium text-light-onSurfaceVariant dark:bg-dark-surface'>OR</span>
+              <span className='absolute left-1/2 -translate-x-1/2 -translate-y-1/2 transform bg-light-surface px-4 text-bodyMedium text-light-onSurfaceVariant dark:bg-dark-surface'>
+                OR
+              </span>
             </div>
             <div className='mb-10 flex justify-center gap-5'>
-              <Button variant='withIcon' className='' type='button'>
+              <Button
+                variant='withIcon'
+                className=''
+                type='button'
+              >
                 <img
                   src={FacebookIcon}
                   alt='Facebook'
-                  className='h-6 w-6'/>
+                  className='h-6 w-6'
+                />
               </Button>
-              <Button variant='withIcon' className='' type='button'>
+              <Button
+                variant='withIcon'
+                className=''
+                type='button'
+              >
                 <img
                   src={GoogleIcon}
                   alt='Google'
-                  className='h-6 w-6' />
+                  className='h-6 w-6'
+                />
               </Button>
             </div>
           </div>
