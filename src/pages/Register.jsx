@@ -63,7 +63,7 @@ const Register = () => {
     <>
       <PageTitle title='Create an account' />
 
-      <div className='relative grid h-dvh w-screen grid-cols-1 p-2 lg:grid-cols-[1fr,1.2fr] lg:gap-2'>
+      <div className='relative grid min-h-dvh grid-cols-1 p-2 lg:grid-cols-[1fr,1.2fr] lg:gap-2'>
         <div className='flex flex-col p-2'>
           <Link
             to={'/'}
@@ -71,8 +71,7 @@ const Register = () => {
           >
             <img
               src={React}
-              className=''
-              alt='Dark Logo'
+              className='' alt='Dark Logo'
             />
           </Link>
           <div className='mx-auto flex w-full max-w-[480px] flex-col gap-2'>
@@ -235,8 +234,7 @@ const Register = () => {
             <div className='mb-10 flex justify-center gap-5'>
               <Button
                 variant='withIcon'
-                className=''
-                type='button'
+                className='' type='button'
               >
                 <img
                   src={FacebookIcon}
@@ -246,8 +244,7 @@ const Register = () => {
               </Button>
               <Button
                 variant='withIcon'
-                className=''
-                type='button'
+                className='' type='button'
               >
                 <img
                   src={GoogleIcon}
