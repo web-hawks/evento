@@ -29,7 +29,7 @@ const Button = ({
       'text-black bg-transparent border border-transparent rounded shadow-sm hover:bg-gray-100 focus:ring-gray-500',
     link: 'text-black bg-transparent border-none rounded shadow-none hover:underline focus:ring-gray-500',
     withIcon:
-      'text-white bg-black border border-transparent rounded shadow-sm hover:bg-gray-700 focus:ring-gray-500 flex justify-center gap-2',
+      'text-white bg-light-surfaceDim dark:bg-dark-surfaceBright border border-transparent rounded shadow-sm hover:bg-gray-700 focus:ring-gray-500 flex justify-center gap-2',
   };
   const sizeStyles = {
     small: 'px-3 py-1 text-sm',
