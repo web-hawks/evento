@@ -11,6 +11,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Register from "../pages/Register";
 import Terms from "../pages/Terms";
+import Login from "../pages/login";
 
 
 /**
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
     {
         path: '/terms',
         element: <Terms />,
+    },
+    {
+        path: '/login',
+        element: <Login />,
     }
 ]);
 
