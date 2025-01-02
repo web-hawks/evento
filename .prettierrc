@@ -10,13 +10,5 @@
   "singleAttributePerLine": true,
   "arrowParens": "always",
   "endOfLine": "lf",
-  "overrides": [
-    {
-      "files": "*.jsx,*.tsx,*.ts,*.js,*.json,*.html,*.css,*.scss,*.md",
-      "options": {
-        "bracketSameLine": true,
-        "singleAttributePerLine": false
-      }
-    }
-  ]
+  "trailingComma": "all"
 }
