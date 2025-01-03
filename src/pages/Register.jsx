@@ -73,7 +73,8 @@ const Register = () => {
           >
             <img
               src={React}
-              className='' alt='Dark Logo'
+              className=''
+              alt='Dark Logo'
             />
           </Link>
           <div className='mx-auto flex w-full max-w-[480px] flex-col gap-2'>
@@ -236,7 +237,8 @@ const Register = () => {
             <div className='mb-10 flex justify-center gap-5'>
               <Button
                 variant='withIcon'
-                className='' type='button'
+                className=''
+                type='button'
               >
                 <img
                   src={FacebookIcon}
@@ -246,7 +248,8 @@ const Register = () => {
               </Button>
               <Button
                 variant='withIcon'
-                className='' type='button'
+                className=''
+                type='button'
               >
                 <img
                   src={GoogleIcon}
