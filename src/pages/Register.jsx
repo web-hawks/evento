@@ -1,7 +1,7 @@
 /**
  * Node Modules
  */
-import { Link, redirect } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
@@ -30,6 +30,7 @@ const Register = () => {
     watch,
   } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     console.log(data);
@@ -42,7 +43,8 @@ const Register = () => {
       );
     } catch (error) {
       console.error('Registration failed', error);
-      // Here you can add logic to show an error message to the user
+    } finally {
+      setIsSubmitting(false);
     }
 
     // After Successfully creating an account, login the user and redirect to the home page
@@ -51,12 +53,12 @@ const Register = () => {
       await account.createEmailPasswordSession(data.email, data.password);
     } catch (error) {
       console.error('Login failed', error);
-      redirect('/login');
+      navigate('/login');
     } finally {
       setIsSubmitting(false);
     }
 
-    return redirect('/');
+    return navigate('/');
   };
 
   return (
