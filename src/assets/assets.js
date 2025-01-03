@@ -4,5 +4,14 @@ import Banner from './banner.svg';
 import React from './react.svg';
 import FacebookIcon from './facebookIcon.png';
 import GoogleIcon from './googleIcon.png';
+import LinkedinIcon from './linkedinIcon.png';
 
-export { SmallLogo, LargeLogo, Banner, React, FacebookIcon, GoogleIcon };
+export {
+  SmallLogo,
+  LargeLogo,
+  Banner,
+  React,
+  FacebookIcon,
+  GoogleIcon,
+  LinkedinIcon,
+};

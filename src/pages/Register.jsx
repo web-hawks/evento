@@ -14,13 +14,18 @@ import generateID from '../utils/generateID';
 /**
  * Components
  */
-import { React } from '../assets/assets';
+import {
+  LinkedinIcon,
+  React,
+  FacebookIcon,
+  GoogleIcon,
+} from '../assets/assets';
 import PageTitle from '../components/PageTitle';
 import FieldText from '../components/FieldText';
 import PasswordStrengthMeter from '../components/PasswordStrengthMeter';
 import Button from '../components/Button';
 import { BackgroundGradientAnimation } from '../components/ui/background-gradient-animation';
-import { FacebookIcon, GoogleIcon } from '../assets/assets';
+import registerSchema from '../schemas/registerSchema';
 
 const Register = () => {
   const {
@@ -28,7 +33,9 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm();
+  } = useForm({
+    resolver: registerSchema,
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const onSubmit = async (data) => {
@@ -94,9 +101,7 @@ const Register = () => {
                 label='Full Name'
                 name='fullName'
                 register={register}
-                required
                 errors={errors}
-                rules={{ required: 'Full name is required' }}
                 autoFocus={true}
                 placeholder='Full name'
               />
@@ -104,15 +109,7 @@ const Register = () => {
                 label='Email'
                 name='email'
                 placeholder='Enter Your Email'
-                required
                 register={register}
-                rules={{
-                  required: 'Email is required',
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: 'Email is not valid',
-                  },
-                }}
                 errors={errors}
                 type='email'
               />
@@ -120,57 +117,18 @@ const Register = () => {
                 label='Password'
                 name='password'
                 placeholder='Enter Your Password'
-                required
                 register={register}
                 errors={errors}
                 type='password'
-                rules={{
-                  minLength: {
-                    value: 8,
-                    message: 'Password must be at least 8 characters',
-                  },
-                  required: 'Password is required',
-                  pattern: {
-                    value:
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()]).{8,}$/,
-                    message:
-                      'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-                  },
-                }}
               />
               <PasswordStrengthMeter password={watch('password')} />
               <FieldText
                 label='Confirm Password'
                 name='confirmPassword'
                 placeholder='Confirm Your Password'
-                required={true}
                 register={register}
                 errors={errors}
                 type='password'
-                rules={{
-                  required: 'Confirm password is required',
-                  validate: (value) =>
-                    value === watch('password') || 'Passwords do not match',
-                }}
-              />
-              <FieldText
-                label='Age'
-                name='age'
-                placeholder='Enter Your Age'
-                register={register}
-                errors={errors}
-                type='number'
-                rules={{
-                  min: {
-                    value: 18,
-                    message: 'You must be at least 18 years old',
-                  },
-                  max: {
-                    value: 99,
-                    message: 'You must be at most 99 years old',
-                  },
-                  required: 'Age is required',
-                }}
               />
               <div className='flex max-w-md flex-col gap-4'>
                 <label className='group flex cursor-pointer items-center space-x-3'>
@@ -253,6 +211,17 @@ const Register = () => {
               >
                 <img
                   src={GoogleIcon}
+                  alt='Google'
+                  className='h-6 w-6'
+                />
+              </Button>
+              <Button
+                variant='withIcon'
+                className=''
+                type='button'
+              >
+                <img
+                  src={LinkedinIcon}
                   alt='Google'
                   className='h-6 w-6'
                 />
