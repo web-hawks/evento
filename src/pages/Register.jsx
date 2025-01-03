@@ -4,6 +4,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 /**
  * Custom Modules
@@ -34,7 +35,7 @@ const Register = () => {
     formState: { errors },
     watch,
   } = useForm({
-    resolver: registerSchema,
+    resolver: zodResolver(registerSchema),
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
@@ -135,9 +136,7 @@ const Register = () => {
                   <div className='relative flex items-center justify-center'>
                     <input
                       type='checkbox'
-                      {...register('termsAccepted', {
-                        required: 'You must accept the terms and conditions',
-                      })}
+                      {...register('termsAccepted')}
                       className='peer sr-only'
                     />
                     <div className='h-6 w-6 rounded-md border-2 border-dark-primary transition-all duration-medium1 ease-legacy peer-checked:bg-light-primary dark:border-light-primary dark:peer-checked:bg-dark-primary'>
