@@ -13,7 +13,7 @@ import Terms from '../pages/Terms';
 /**
  * Loaders
  */
-import RegisterLoader from './loaders/registerLoader';
+// import RegisterLoader from './loaders/registerLoader';
 
 /**
  * Router
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
-    loader: RegisterLoader,
+    // loader: RegisterLoader,
   },
   {
     path: '/terms',
