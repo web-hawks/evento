@@ -1,10 +1,11 @@
 /**
  * Node Modules
  */
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ToastContainer, toast } from 'react-toastify';
 
 /**
  * Custom Modules
@@ -38,41 +39,47 @@ const Register = () => {
     resolver: zodResolver(registerSchema),
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate();
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-    console.log(data);
+
     try {
-      await account.create(
+      // Create account
+      const newAccount = await account.create(
         generateID(),
         data.email,
         data.password,
-        data.fullName,
+        data.fullName
       );
-    } catch (error) {
-      console.error('Registration failed', error);
-    } finally {
-      setIsSubmitting(false);
-    }
 
-    // After Successfully creating an account, login the user and redirect to the home page
-    try {
-      // create a session for the new user with the provided email and password
+      if (!newAccount) {
+        throw new Error('Account creation failed');
+      }
+
+      // Create session for the new user
       await account.createEmailPasswordSession(data.email, data.password);
+
+      toast.success('Registration successful! You are now logged in.');
+      // Navigation logic can be added here
+      // navigate('/home');
     } catch (error) {
-      console.error('Login failed', error);
-      navigate('/login');
+      console.error('Registration/Login failed', error);
+
+      if (error instanceof Error) {
+        toast.error(`Error: ${error.message}`);
+      } else {
+        toast.error('An unexpected error occurred');
+      }
     } finally {
       setIsSubmitting(false);
     }
-
-    return navigate('/');
   };
+
+
 
   return (
     <>
       <PageTitle title='Create an account' />
-
+      <ToastContainer position='top-right' autoClose={6000} />
       <div className='relative grid min-h-dvh grid-cols-1 p-2 lg:grid-cols-[1fr,1.2fr] lg:gap-2'>
         <div className='flex flex-col p-2'>
           <Link
@@ -81,8 +88,7 @@ const Register = () => {
           >
             <img
               src={React}
-              className=''
-              alt='Dark Logo'
+              className='' alt='Dark Logo'
             />
           </Link>
           <div className='mx-auto flex w-full max-w-[480px] flex-col gap-2'>
@@ -194,8 +200,7 @@ const Register = () => {
             <div className='mb-10 flex justify-center gap-5'>
               <Button
                 variant='withIcon'
-                className=''
-                type='button'
+                className='' type='button'
               >
                 <img
                   src={FacebookIcon}
@@ -205,8 +210,7 @@ const Register = () => {
               </Button>
               <Button
                 variant='withIcon'
-                className=''
-                type='button'
+                className='' type='button'
               >
                 <img
                   src={GoogleIcon}
@@ -216,8 +220,7 @@ const Register = () => {
               </Button>
               <Button
                 variant='withIcon'
-                className=''
-                type='button'
+                className='' type='button'
               >
                 <img
                   src={LinkedinIcon}
