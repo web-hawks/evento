@@ -11,6 +11,7 @@ import { BackgroundGradientAnimation } from '../components/ui/background-gradien
 import AfterDataProcessing from '../components/AfterDataProcessing';
 import PasswordStrengthMeter from '../components/PasswordStrengthMeter';
 import { account } from '../lib/appwrite';
+import { toast, ToastContainer } from 'react-toastify';
 
 function ResetPassword() {
   const {
@@ -21,31 +22,27 @@ function ResetPassword() {
   } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [reqState, setReqState] = useState('');
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const handleResetPassword = (data) => {
     setIsSubmitting(true);
 
-    const { password, confirmPassword } = data;
+    const { password } = data;
     const userId = searchParams.get('userId');
     const secret = searchParams.get('secret');
-    setSearchParams('');
-    console.log(password, confirmPassword, userId, secret);
 
-    const promise = account.updateRecovery(
-      userId,
-      secret,
-      password,
-      confirmPassword,
-    );
+    const promise = account.updateRecovery(userId, secret, password);
 
     promise
-      .then((res) => {
-        console.log(res); // Success
+      .then(() => {
         setReqState('success');
       })
       .catch((err) => {
-        console.log(err); // Failure
+        if (err.type == 'user_invalid_token')
+          toast.error('there was a problem, try requesting a new reset link.');
+        else if (err.type == 'general_rate_limit_exceeded')
+          toast.error('there was a problem, please try again later');
+        else toast.error('Error', err.message);
       })
       .finally(() => {
         setIsSubmitting(false);
@@ -54,8 +51,12 @@ function ResetPassword() {
 
   return (
     <>
-      <PageTitle title='Reset Password' />
+      <ToastContainer
+        position='top-right'
+        autoClose={6000}
+      />
 
+      <PageTitle title='Reset Password' />
       <div className='relative grid min-h-dvh grid-cols-1 p-2 lg:grid-cols-[1fr,1.2fr] lg:gap-2'>
         <div className='flex flex-col p-2'>
           <Link

@@ -10,6 +10,7 @@ import Button from '../components/Button';
 import { BackgroundGradientAnimation } from '../components/ui/background-gradient-animation';
 import { account } from '../lib/appwrite';
 import AfterDataProcessing from '../components/AfterDataProcessing';
+import { toast, ToastContainer } from 'react-toastify';
 
 function ForgotPassword() {
   const {
@@ -29,12 +30,15 @@ function ForgotPassword() {
     );
 
     promise
-      .then((res) => {
-        console.log(res); // Success
+      .then(() => {
         setIsSent(true);
       })
       .catch((err) => {
-        console.log(err); // Failure
+        if (err.type == 'user_not_found')
+          toast.error("looks like you don't have an account!");
+        else if (err.type == 'general_rate_limit_exceeded')
+          toast.error('there was a problem, please try again later');
+        else toast.error(err.message);
       })
       .finally(() => {
         setIsSubmitting(false);
@@ -43,8 +47,11 @@ function ForgotPassword() {
 
   return (
     <>
+      <ToastContainer
+        position='top-right'
+        autoClose={6000}
+      />
       <PageTitle title='Forgot Password' />
-
       <div className='relative grid min-h-dvh grid-cols-1 p-2 lg:grid-cols-[1fr,1.2fr] lg:gap-2'>
         <div className='flex flex-col p-2'>
           <Link
