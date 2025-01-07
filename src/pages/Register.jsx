@@ -188,7 +188,7 @@ const Register = () => {
               </Button>
             </form>
 
-            <p className='dark:text-dark-onSurfaceVarian mt-4 text-center text-bodyMedium text-light-onSurfaceVariant'>
+            <p className='mt-4 text-center text-bodyMedium text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant'>
               Already have an account?
               <Link
                 to={'/login'}
