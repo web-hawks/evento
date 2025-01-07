@@ -11,13 +11,15 @@ import { BackgroundGradientAnimation } from '../components/ui/background-gradien
 import { account } from '../lib/appwrite';
 import AfterDataProcessing from '../components/AfterDataProcessing';
 import { toast, ToastContainer } from 'react-toastify';
+import { zodResolver } from '@hookform/resolvers/zod';
+import forgotPasswordSchema from '../schemas/forgotPasswordSchema';
 
 function ForgotPassword() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: zodResolver(forgotPasswordSchema) });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
@@ -86,18 +88,11 @@ function ForgotPassword() {
                 <FieldText
                   label='Email'
                   name='email'
-                  placeholder='Enter Your Email'
-                  required
-                  register={register}
-                  rules={{
-                    required: 'Email is required',
-                    pattern: {
-                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                      message: 'Email is not valid',
-                    },
-                  }}
-                  errors={errors}
                   type='email'
+                  placeholder='Enter Your Email'
+                  autoFocus={true}
+                  register={register}
+                  errors={errors}
                 />
 
                 <Button

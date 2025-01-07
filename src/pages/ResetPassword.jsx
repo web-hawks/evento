@@ -12,6 +12,8 @@ import AfterDataProcessing from '../components/AfterDataProcessing';
 import PasswordStrengthMeter from '../components/PasswordStrengthMeter';
 import { account } from '../lib/appwrite';
 import { toast, ToastContainer } from 'react-toastify';
+import { zodResolver } from '@hookform/resolvers/zod';
+import resetPasswordSchema from '../schemas/resetPasswordSchema';
 
 function ResetPassword() {
   const {
@@ -19,7 +21,7 @@ function ResetPassword() {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm();
+  } = useForm({ resolver: zodResolver(resetPasswordSchema) });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [reqState, setReqState] = useState('');
   const [searchParams] = useSearchParams();
@@ -91,39 +93,20 @@ function ResetPassword() {
                 <FieldText
                   label='Password'
                   name='password'
+                  type='password'
+                  autoFocus={true}
                   placeholder='Enter Your Password'
-                  required
                   register={register}
                   errors={errors}
-                  type='password'
-                  rules={{
-                    minLength: {
-                      value: 8,
-                      message: 'Password must be at least 8 characters',
-                    },
-                    required: 'Password is required',
-                    pattern: {
-                      value:
-                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()]).{8,}$/,
-                      message:
-                        'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-                    },
-                  }}
                 />
                 <PasswordStrengthMeter password={watch('password')} />
                 <FieldText
                   label='Confirm Password'
                   name='confirmPassword'
+                  type='password'
                   placeholder='Confirm Your Password'
-                  required={true}
                   register={register}
                   errors={errors}
-                  type='password'
-                  rules={{
-                    required: 'Confirm password is required',
-                    validate: (value) =>
-                      value === watch('password') || 'Passwords do not match',
-                  }}
                 />
 
                 <Button
