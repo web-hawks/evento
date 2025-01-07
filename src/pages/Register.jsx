@@ -18,7 +18,8 @@ import generateID from '../utils/generateID';
  */
 import {
   LinkedinIcon,
-  React,
+  EventoDark,
+  EventoLight,
   FacebookIcon,
   GoogleIcon,
   Banner,
@@ -87,8 +88,12 @@ const Register = () => {
             className='mx-auto mb-auto w-16 max-w-max lg:mx-0'
           >
             <img
-              src={React}
-              className='' alt='Dark Logo'
+              src={EventoDark}
+              className='hidden dark:block' alt='Dark Logo'
+            />
+            <img
+              src={EventoLight}
+              className='dark:hidden' alt='Dark Logo'
             />
           </Link>
           <div className='mx-auto flex w-full max-w-[480px] flex-col gap-2'>
@@ -238,7 +243,7 @@ const Register = () => {
         <img
           src={Banner}
           alt=""
-          className="img-cover" />
+          className="h-full w-full rounded-small object-cover" />
       </div>
     </>
   );
