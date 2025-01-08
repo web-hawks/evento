@@ -1,13 +1,15 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { account } from '../lib/appwrite';
 import PageTitle from '../components/PageTitle';
 import FieldText from '../components/FieldText';
 import Button from '../components/Button';
 import { loginSchema } from '../schemas/loginSchema';
-import { z } from 'zod';
-import { Link } from 'react-router-dom';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
   FacebookIcon,
   React,
@@ -21,35 +23,35 @@ const Login = () => {
     register: LoginToAccount,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
+
   const navigate = useNavigate();
-  const [loginError, setLoginError] = useState('');
-
   const onSubmit = async (data) => {
-    setLoginError('');
     try {
-      // Validate data
-      loginSchema.parse(data);
-
-      //  login
+      // login
       await account.createEmailPasswordSession(data.email, data.password);
+      toast.success('Login successful!');
 
-      // Navigate to home
-      navigate('/');
+      setTimeout(() => {
+        navigate('/');
+      }, 3000); // 3 second delay
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        console.error(error.errors);
+      const errorMessage = error.message;
+      console.error('Login failed:', errorMessage);
 
-        setLoginError("Email or password isn't correct, Please try again.");
-      } else {
-        console.error('Login failed:', error);
-        setLoginError(error.message || 'Login failed. Please try again.');
-      }
+      // setLoginError(errorMessage);
+      toast.error("Email or password isn't correct, please try again");
     }
   };
 
   return (
     <>
+      <ToastContainer
+        position='top-right'
+        autoClose={6000}
+      />
       <PageTitle title='Welcome back to your account' />
       <div className='relative grid h-dvh w-screen grid-cols-1 p-2 lg:grid-cols-[1fr,1.2fr] lg:gap-2'>
         <div className='flex flex-col p-2'>
@@ -104,12 +106,10 @@ const Login = () => {
               </Button>
               <Link
                 to='/forget-password'
-                // className='text-cyan-800 hover:underline'
                 className='text-center text-light-onSurface dark:text-dark-primary hover:underline '
               >
                 Forget your password?
               </Link>
-              {loginError && <p className='text-red-500'>{loginError}</p>}
 
               <div className='flex justify-center gap-4 mt-4'>
                 <Button
