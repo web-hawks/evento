@@ -18,8 +18,6 @@ import generateID from '../utils/generateID';
  */
 import {
   LinkedinIcon,
-  EventoDark,
-  EventoLight,
   FacebookIcon,
   GoogleIcon,
   Banner,
@@ -29,6 +27,7 @@ import FieldText from '../components/FieldText';
 import PasswordStrengthMeter from '../components/PasswordStrengthMeter';
 import Button from '../components/Button';
 import registerSchema from '../schemas/registerSchema';
+import AuthNavbar from '../components/AuthNavbar';
 
 const Register = () => {
   const {
@@ -49,7 +48,7 @@ const Register = () => {
         generateID(),
         data.email,
         data.password,
-        data.fullName
+        data.fullName,
       );
 
       if (!newAccount) {
@@ -75,27 +74,16 @@ const Register = () => {
     }
   };
 
-
-
   return (
     <>
       <PageTitle title='Create an account' />
-      <ToastContainer position='top-right' autoClose={6000} />
+      <ToastContainer
+        position='top-right'
+        autoClose={6000}
+      />
       <div className='relative grid min-h-dvh grid-cols-1 p-2 lg:grid-cols-[1fr,1.2fr] lg:gap-2'>
         <div className='flex flex-col p-2'>
-          <Link
-            to={'/'}
-            className='mx-auto mb-auto w-16 max-w-max lg:mx-0'
-          >
-            <img
-              src={EventoDark}
-              className='hidden dark:block' alt='Dark Logo'
-            />
-            <img
-              src={EventoLight}
-              className='dark:hidden' alt='Dark Logo'
-            />
-          </Link>
+          <AuthNavbar />
           <div className='mx-auto flex w-full max-w-[480px] flex-col gap-2'>
             <h2 className='text-center font-heading text-displaySmall font-semibold text-light-onBackground dark:text-light-onPrimary'>
               Create an account
@@ -242,8 +230,9 @@ const Register = () => {
         </div>
         <img
           src={Banner}
-          alt=""
-          className="h-full w-full rounded-small object-cover" />
+          alt=''
+          className='hidden h-full w-full rounded-small object-cover lg:block'
+        />
       </div>
     </>
   );
