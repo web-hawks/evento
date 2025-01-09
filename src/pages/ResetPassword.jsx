@@ -1,19 +1,36 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast, ToastContainer } from 'react-toastify';
+
+import { account } from '../lib/appwrite';
+import resetPasswordSchema from '../schemas/resetPasswordSchema';
 
 import { React } from '../assets/assets';
+import { BackgroundGradientAnimation } from '../components/ui/background-gradient-animation';
 
 import PageTitle from '../components/PageTitle';
 import FieldText from '../components/FieldText';
 import Button from '../components/Button';
-import { BackgroundGradientAnimation } from '../components/ui/background-gradient-animation';
-import AfterDataProcessing from '../components/AfterDataProcessing';
 import PasswordStrengthMeter from '../components/PasswordStrengthMeter';
-import { account } from '../lib/appwrite';
-import { toast, ToastContainer } from 'react-toastify';
-import { zodResolver } from '@hookform/resolvers/zod';
-import resetPasswordSchema from '../schemas/resetPasswordSchema';
+import AfterDataProcessing from '../components/AfterDataProcessing';
+
+const formFields = [
+  {
+    label: 'Password',
+    name: 'password',
+    type: 'password',
+    autoFocus: true,
+    placeholder: 'Enter Your Password',
+  },
+  {
+    label: 'Confirm Password',
+    name: 'confirmPassword',
+    type: 'password',
+    placeholder: 'Confirm Your Password',
+  },
+];
 
 function ResetPassword() {
   const {
@@ -53,12 +70,13 @@ function ResetPassword() {
 
   return (
     <>
+      <PageTitle title='Reset Password' />
+
       <ToastContainer
         position='top-right'
         autoClose={6000}
       />
 
-      <PageTitle title='Reset Password' />
       <div className='relative grid min-h-dvh grid-cols-1 p-2 lg:grid-cols-[1fr,1.2fr] lg:gap-2'>
         <div className='flex flex-col p-2'>
           <Link
@@ -90,24 +108,25 @@ function ResetPassword() {
                 method='POST'
                 className='grid grid-cols-1 gap-4'
               >
-                <FieldText
-                  label='Password'
-                  name='password'
-                  type='password'
-                  autoFocus={true}
-                  placeholder='Enter Your Password'
-                  register={register}
-                  errors={errors}
-                />
-                <PasswordStrengthMeter password={watch('password')} />
-                <FieldText
-                  label='Confirm Password'
-                  name='confirmPassword'
-                  type='password'
-                  placeholder='Confirm Your Password'
-                  register={register}
-                  errors={errors}
-                />
+                {formFields.map((field) => (
+                  <Fragment key={field.name}>
+                    <FieldText
+                      label={field.label}
+                      name={field.name}
+                      type={field.type}
+                      autoFocus={field.autoFocus}
+                      placeholder={field.placeholder}
+                      register={register}
+                      errors={errors}
+                    />
+                    {field.name == 'password' && (
+                      <PasswordStrengthMeter
+                        password={watch('password')}
+                        key={'strengthMeter'}
+                      />
+                    )}
+                  </Fragment>
+                ))}
 
                 <Button
                   type='submit'

@@ -1,18 +1,19 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast, ToastContainer } from 'react-toastify';
+
+import { account } from '../lib/appwrite';
+import forgotPasswordSchema from '../schemas/forgotPasswordSchema';
 
 import { React } from '../assets/assets';
+import { BackgroundGradientAnimation } from '../components/ui/background-gradient-animation';
 
 import PageTitle from '../components/PageTitle';
 import FieldText from '../components/FieldText';
 import Button from '../components/Button';
-import { BackgroundGradientAnimation } from '../components/ui/background-gradient-animation';
-import { account } from '../lib/appwrite';
 import AfterDataProcessing from '../components/AfterDataProcessing';
-import { toast, ToastContainer } from 'react-toastify';
-import { zodResolver } from '@hookform/resolvers/zod';
-import forgotPasswordSchema from '../schemas/forgotPasswordSchema';
 
 function ForgotPassword() {
   const {
@@ -49,11 +50,13 @@ function ForgotPassword() {
 
   return (
     <>
+      <PageTitle title='Forgot Password' />
+
       <ToastContainer
         position='top-right'
         autoClose={6000}
       />
-      <PageTitle title='Forgot Password' />
+
       <div className='relative grid min-h-dvh grid-cols-1 p-2 lg:grid-cols-[1fr,1.2fr] lg:gap-2'>
         <div className='flex flex-col p-2'>
           <Link
