@@ -105,7 +105,7 @@ const Login = () => {
                 {isSubmitting ? 'Logging in...' : 'Login'}
               </Button>
               <Link
-                to='/forget-password'
+                to='/forgotPassword'
                 className='text-center text-light-onSurface dark:text-dark-primary hover:underline '
               >
                 Forget your password?
