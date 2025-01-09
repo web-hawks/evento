@@ -77,7 +77,7 @@ export default {
           onError: '#33062D',
           errorContainer: '#E52A5F',
           onErrorContainer: '#F9DFCE',
-          background: '#33062D',
+          background: '#170617', //'#33062D'
           onBackground: '#F5BAAA',
           surface: '#33062D',
           onSurface: '#F5BAAA',
