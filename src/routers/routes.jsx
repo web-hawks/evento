@@ -1,15 +1,18 @@
 /**
  * Node Modules
  */
-import { createBrowserRouter} from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
 /**
  * Components
  */
-import App from "../App";
-import Register from "../pages/Register";
-import Terms from "../pages/Terms";
-import Login from "../pages/Login";
+import App from '../App';
+import Register from '../pages/Register';
+import ForgotPassword from '../pages/ForgotPassword';
+import ResetPassword from '../pages/ResetPassword';
+import Terms from '../pages/Terms';
+import Login from '../pages/Login';
+
 
 /**
  * Loaders

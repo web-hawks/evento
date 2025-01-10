@@ -42,7 +42,7 @@ const PasswordStrengthMeter = ({ password }) => {
     <div className={`transition-opacity duration-medium2`}>
       {/* Text Score */}
       <div className='mb-1 flex justify-between'>
-        <span className='text-sm font-medium text-gray-700'>
+        <span className='text-sm font-medium text-gray-700 dark:text-dark-tertiary'>
           Password Strength:
         </span>
         <span
@@ -61,8 +61,7 @@ const PasswordStrengthMeter = ({ password }) => {
         aria-valuemax='5'
       >
         <div
-          className={`h-2 rounded ${
-            score === 0
+          className={`h-2 rounded ${score === 0
               ? 'bg-red-500'
               : score === 1
                 ? 'bg-orange-500'
@@ -73,7 +72,7 @@ const PasswordStrengthMeter = ({ password }) => {
                     : score === 4
                       ? 'bg-blue-500'
                       : 'bg-purple-500'
-          } duration-long2 transition-all`}
+            } duration-long2 transition-all`}
           style={{
             width: `${score * 20}%`,
           }}
