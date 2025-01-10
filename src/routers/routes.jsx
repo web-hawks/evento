@@ -6,14 +6,16 @@ import { createBrowserRouter } from 'react-router-dom';
 /**
  * Components
  */
-import App from '../App';
-import Register from '../pages/Register';
-import Terms from '../pages/Terms';
+import App from "../App";
+import Register from "../pages/Register";
+import Terms from "../pages/Terms";
+import Login from "../pages/Login";
 
 /**
  * Loaders
  */
-// import RegisterLoader from './loaders/registerLoader';
+import RegisterLoader from './loaders/registerLoader';
+import loginLoader from './loaders/loginLoader';
 
 /**
  * Router
@@ -27,12 +29,18 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
-    // loader: RegisterLoader,
+    loader: RegisterLoader,
   },
   {
     path: '/terms',
     element: <Terms />,
   },
+  {
+    path: '/login',
+    element: <Login />,
+    loader: loginLoader,
+
+  }
 ]);
 
 export default router;
