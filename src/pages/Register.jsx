@@ -176,7 +176,7 @@ const Register = () => {
               </Button>
             </form>
 
-            <p className='mt-4 text-center text-bodyMedium text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant'>
+            <p className='mt-4 text-center text-bodyMedium text-light-onSurfaceVariant dark:text-white'>
               Already have an account?
               <Link
                 to={'/login'}
@@ -186,14 +186,15 @@ const Register = () => {
               </Link>
             </p>
             <div className='relative my-8 h-px w-full bg-light-onSurfaceVariant dark:bg-dark-onSurfaceVariant'>
-              <span className='absolute left-1/2 -translate-x-1/2 -translate-y-1/2 transform bg-light-surface px-4 text-bodyMedium text-light-onSurfaceVariant dark:bg-dark-surface'>
+              <span className='absolute left-1/2 -translate-x-1/2 -translate-y-1/2 transform bg-light-background px-4 text-bodyMedium text-light-onSurfaceVariant dark:bg-dark-background dark:text-light-primaryContainer'>
                 OR
               </span>
             </div>
             <div className='mb-10 flex justify-center gap-5'>
               <Button
                 variant='withIcon'
-                className='' type='button'
+                className='hover:scale-125 hover:bg-light-background dark:bg-dark-background dark:hover:bg-dark-background'
+                type='button'
               >
                 <img
                   src={FacebookIcon}
@@ -203,7 +204,8 @@ const Register = () => {
               </Button>
               <Button
                 variant='withIcon'
-                className='' type='button'
+                className='hover:scale-125 hover:bg-light-background dark:bg-dark-background dark:hover:bg-dark-background'
+                type='button'
               >
                 <img
                   src={GoogleIcon}
@@ -213,7 +215,8 @@ const Register = () => {
               </Button>
               <Button
                 variant='withIcon'
-                className='' type='button'
+                className='hover:scale-125 hover:bg-light-background dark:bg-dark-background dark:hover:bg-dark-background'
+                type='button'
               >
                 <img
                   src={LinkedinIcon}
@@ -224,7 +227,7 @@ const Register = () => {
             </div>
           </div>
 
-          <p className='mx-auto mt-auto text-bodyMedium text-light-onSurfaceVariant lg:mx-0 dark:text-dark-onSurfaceVariant'>
+          <p className='mx-auto mt-auto text-bodyMedium text-light-onSurfaceVariant lg:mx-0 dark:text-white'>
             &copy; 2024 WebHawks . All right reserved
           </p>
         </div>
