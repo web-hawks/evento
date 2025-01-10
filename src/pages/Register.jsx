@@ -1,10 +1,11 @@
 /**
  * Node Modules
  */
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ToastContainer, toast } from 'react-toastify';
 
 /**
  * Custom Modules
@@ -17,15 +18,16 @@ import generateID from '../utils/generateID';
  */
 import {
   LinkedinIcon,
-  React,
+  EventoDark,
+  EventoLight,
   FacebookIcon,
   GoogleIcon,
+  Banner,
 } from '../assets/assets';
 import PageTitle from '../components/PageTitle';
 import FieldText from '../components/FieldText';
 import PasswordStrengthMeter from '../components/PasswordStrengthMeter';
 import Button from '../components/Button';
-import { BackgroundGradientAnimation } from '../components/ui/background-gradient-animation';
 import registerSchema from '../schemas/registerSchema';
 
 const Register = () => {
@@ -38,41 +40,47 @@ const Register = () => {
     resolver: zodResolver(registerSchema),
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate();
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-    console.log(data);
+
     try {
-      await account.create(
+      // Create account
+      const newAccount = await account.create(
         generateID(),
         data.email,
         data.password,
-        data.fullName,
+        data.fullName
       );
-    } catch (error) {
-      console.error('Registration failed', error);
-    } finally {
-      setIsSubmitting(false);
-    }
 
-    // After Successfully creating an account, login the user and redirect to the home page
-    try {
-      // create a session for the new user with the provided email and password
+      if (!newAccount) {
+        throw new Error('Account creation failed');
+      }
+
+      // Create session for the new user
       await account.createEmailPasswordSession(data.email, data.password);
+
+      toast.success('Registration successful! You are now logged in.');
+      // Navigation logic can be added here
+      // navigate('/home');
     } catch (error) {
-      console.error('Login failed', error);
-      navigate('/login');
+      console.error('Registration/Login failed', error);
+
+      if (error instanceof Error) {
+        toast.error(`Error: ${error.message}`);
+      } else {
+        toast.error('An unexpected error occurred');
+      }
     } finally {
       setIsSubmitting(false);
     }
-
-    return navigate('/');
   };
+
+
 
   return (
     <>
       <PageTitle title='Create an account' />
-
+      <ToastContainer position='top-right' autoClose={6000} />
       <div className='relative grid min-h-dvh grid-cols-1 p-2 lg:grid-cols-[1fr,1.2fr] lg:gap-2'>
         <div className='flex flex-col p-2'>
           <Link
@@ -80,9 +88,12 @@ const Register = () => {
             className='mx-auto mb-auto w-16 max-w-max lg:mx-0'
           >
             <img
-              src={React}
-              className=''
-              alt='Dark Logo'
+              src={EventoDark}
+              className='hidden dark:block' alt='Dark Logo'
+            />
+            <img
+              src={EventoLight}
+              className='dark:hidden' alt='Dark Logo'
             />
           </Link>
           <div className='mx-auto flex w-full max-w-[480px] flex-col gap-2'>
@@ -177,7 +188,7 @@ const Register = () => {
               </Button>
             </form>
 
-            <p className='dark:text-dark-onSurfaceVarian mt-4 text-center text-bodyMedium text-light-onSurfaceVariant'>
+            <p className='mt-4 text-center text-bodyMedium text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant'>
               Already have an account?
               <Link
                 to={'/login'}
@@ -194,8 +205,7 @@ const Register = () => {
             <div className='mb-10 flex justify-center gap-5'>
               <Button
                 variant='withIcon'
-                className=''
-                type='button'
+                className='' type='button'
               >
                 <img
                   src={FacebookIcon}
@@ -205,8 +215,7 @@ const Register = () => {
               </Button>
               <Button
                 variant='withIcon'
-                className=''
-                type='button'
+                className='' type='button'
               >
                 <img
                   src={GoogleIcon}
@@ -216,8 +225,7 @@ const Register = () => {
               </Button>
               <Button
                 variant='withIcon'
-                className=''
-                type='button'
+                className='' type='button'
               >
                 <img
                   src={LinkedinIcon}
@@ -232,18 +240,10 @@ const Register = () => {
             &copy; 2024 WebHawks . All right reserved
           </p>
         </div>
-        {/* <img 
-            src={Banner} 
-            alt="" 
-            className="img-cover" /> */}
-        <BackgroundGradientAnimation
-          containerClassName='hidden lg:relative lg:block lg:overflow-hidden lg:rounded-large'
-          className=''
-        >
-          <p className='absolute bottom-10 left-12 right-12 z-10 text-right text-displayLarge font-semibold leading-tight text-light-onSurface drop-shadow-sm 2xl:text-[72px]'>
-            Bring your ideas to life with WebHawks
-          </p>
-        </BackgroundGradientAnimation>
+        <img
+          src={Banner}
+          alt=""
+          className="h-full w-full rounded-small object-cover" />
       </div>
     </>
   );
