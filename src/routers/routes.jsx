@@ -11,6 +11,7 @@ import Register from '../pages/Register';
 import ForgotPassword from '../pages/ForgotPassword';
 import ResetPassword from '../pages/ResetPassword';
 import Terms from '../pages/Terms';
+import authLoader from './loaders/authLoader';
 
 /**
  * Router
@@ -26,12 +27,14 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: '/forgotPassword',
+    path: '/forgot-password',
     element: <ForgotPassword />,
+    loader: authLoader,
   },
   {
-    path: '/resetPassword',
+    path: '/reset-password',
     element: <ResetPassword />,
+    loader: authLoader,
   },
   {
     path: '/terms',
