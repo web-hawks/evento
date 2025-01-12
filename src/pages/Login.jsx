@@ -92,6 +92,13 @@ const Login = () => {
                 />
               ))}
 
+              <Link
+                to='/forgotPassword'
+                className='text-right link ms-1 inline-block text-light-onSurface dark:text-dark-onSurface'
+              >
+                {' '}
+                Forget your password?
+              </Link>
               <Button
                 type='submit'
                 className='flex h-10 items-center justify-center rounded-full text-labelLarge transition-all duration-medium3 ease-standard hover:bg-light-primaryContainer hover:text-light-onPrimaryContainer hover:shadow-elevation2 focus:shadow-none dark:hover:bg-dark-primaryContainer dark:hover:text-dark-onPrimaryContainer dark:hover:shadow-elevation2 dark:focus:shadow-none'
