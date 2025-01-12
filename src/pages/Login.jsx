@@ -9,18 +9,13 @@ import { loginSchema } from '../schemas/loginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import {
-  FacebookIcon,
-  React,
-  LinkedinIcon,
-  GoogleIcon,
-} from '../assets/assets';
-import { BackgroundGradientAnimation } from '../components/ui/background-gradient-animation';
+import Oauth from '../components/Oauth';
+import AuthNavbar from '../components/AuthNavbar';
+import { Banner } from '../assets/assets';
 
 const Login = () => {
   const {
-    register: LoginToAccount,
+    register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
@@ -30,73 +25,73 @@ const Login = () => {
   const navigate = useNavigate();
   const onSubmit = async (data) => {
     try {
-      // login
       await account.createEmailPasswordSession(data.email, data.password);
-      toast.success('Login successful!');
+      toast.success('Welcome back! You have successfully logged in.');
 
       setTimeout(() => {
         navigate('/');
       }, 3000); // 3 second delay
     } catch (error) {
-      const errorMessage = error.message;
-      console.error('Login failed:', errorMessage);
-
-      // setLoginError(errorMessage);
-      toast.error("Email or password isn't correct, please try again");
+      console.error('Login failed:', error.message);
+      toast.error("Email or password isn't correct. Please try again.");
     }
   };
 
+  const formFields = [
+    {
+      label: 'Email',
+      name: 'email',
+      type: 'email',
+      placeholder: 'Enter Your Email',
+      rules: loginSchema.shape?.email,
+    },
+    {
+      label: 'Password',
+      name: 'password',
+      type: 'password',
+      placeholder: 'Enter Your Password',
+      rules: loginSchema.shape?.password,
+    },
+  ];
+
   return (
     <>
+      <PageTitle title='Welcome back to your account' />
       <ToastContainer
         position='top-right'
         autoClose={6000}
       />
-      <PageTitle title='Welcome back to your account' />
-      <div className='relative grid h-dvh w-screen grid-cols-1 p-2 lg:grid-cols-[1fr,1.2fr] lg:gap-2'>
+      <div className='relative grid min-h-dvh grid-cols-1 p-2 lg:grid-cols-[1fr,1.2fr] lg:gap-2'>
         <div className='flex flex-col p-2'>
-          <Link
-            to={'/'}
-            className='mx-auto mb-auto w-16 max-w-max lg:mx-0'
-          >
-            <img
-              src={React}
-              alt='Dark Logo'
-            />
-          </Link>
+          <AuthNavbar />
           <div className='mx-auto flex w-full max-w-[480px] flex-col gap-2'>
             <h2 className='text-center font-heading text-displaySmall font-semibold text-light-onBackground dark:text-light-onPrimary'>
               Log In Here
             </h2>
-
-            <p className='text-center text-bodyMedium text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant'>
+            <p className='mb-4 mt-1 px-2 text-center text-bodyLarge text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant'>
               Please enter your credentials to access your account. We’re glad
               to have you back!
             </p>
+
             <form
               onSubmit={handleSubmit(onSubmit)}
               method='POST'
               className='grid grid-cols-1 gap-4'
             >
-              <FieldText
-                label='Email'
-                name='email'
-                placeholder='Enter Your Email'
-                required
-                register={LoginToAccount}
-                autoFocus={true}
-                errors={errors}
-                type='email'
-              />
-              <FieldText
-                label='Password'
-                name='password'
-                placeholder='Enter Your Password'
-                required
-                register={LoginToAccount}
-                errors={errors}
-                type='password'
-              />
+              {formFields.map((field, index) => (
+                <FieldText
+                  key={index}
+                  label={field.label}
+                  name={field.name}
+                  register={register}
+                  errors={errors}
+                  type={field.type}
+                  autoFocus={field.name === 'fullName' ? true : false}
+                  placeholder={field.placeholder}
+                  rules={field.rules}
+                />
+              ))}
+
               <Button
                 type='submit'
                 className='flex h-10 items-center justify-center rounded-full text-labelLarge transition-all duration-medium3 ease-standard hover:bg-light-primaryContainer hover:text-light-onPrimaryContainer hover:shadow-elevation2 focus:shadow-none dark:hover:bg-dark-primaryContainer dark:hover:text-dark-onPrimaryContainer dark:hover:shadow-elevation2 dark:focus:shadow-none'
@@ -104,67 +99,34 @@ const Login = () => {
               >
                 {isSubmitting ? 'Logging in...' : 'Login'}
               </Button>
-              <Link
-                to='/forgotPassword'
-                className='text-center text-light-onSurface dark:text-dark-primary hover:underline '
-              >
-                Forget your password?
-              </Link>
-
-              <div className='flex justify-center gap-4 mt-4'>
-                <Button
-                  variant='withIcon'
-                  type='button'
-                >
-                  <img
-                    src={FacebookIcon}
-                    alt='Facebook'
-                    className='h-6 w-6'
-                  />
-                </Button>
-                <Button
-                  variant='withIcon'
-                  type='button'
-                >
-                  <img
-                    src={GoogleIcon}
-                    alt='Google'
-                    className='h-6 w-6'
-                  />
-                </Button>
-                <Button
-                  variant='withIcon'
-                  type='button'
-                >
-                  <img
-                    src={LinkedinIcon}
-                    alt='LinkedIn'
-                    className='h-6 w-6'
-                  />
-                </Button>
-              </div>
-
-              <p className='mt-4 text-center'>
-                Don't have an account?
-                <Link
-                  to='/register'
-                  className='text-light-onSurface dark:text-dark-primary hover:underline'
-                >
-                  Register here
-                </Link>
-              </p>
             </form>
+
+            <p className='mt-4 text-center text-bodyMedium text-light-onSurfaceVariant dark:text-white'>
+              Don't have an account?
+              <Link
+                to={'/register'}
+                className='link ms-1 inline-block text-light-onSurface dark:text-dark-onSurface'
+              >
+                Register here
+              </Link>
+            </p>
+            <div className='relative my-8 h-px w-full bg-light-onSurfaceVariant dark:bg-dark-onSurfaceVariant'>
+              <span className='absolute left-1/2 -translate-x-1/2 -translate-y-1/2 transform bg-light-background px-4 text-bodyMedium text-light-onSurfaceVariant dark:bg-dark-background dark:text-light-primaryContainer'>
+                OR
+              </span>
+            </div>
+            <Oauth />
           </div>
-          <p className='mx-auto mt-auto text-bodyMedium text-light-onSurfaceVariant lg:mx-0 dark:text-dark-onSurfaceVariant'>
-            &copy; 2024 WebHawks. All rights reserved.
+
+          <p className='mx-auto mt-auto text-bodyMedium text-light-onSurfaceVariant lg:mx-0 dark:text-white'>
+            &copy; 2024 WebHawks . All right reserved
           </p>
         </div>
-
-        <BackgroundGradientAnimation containerClassName='hidden lg:relative lg:block lg:overflow-hidden lg:rounded-large'>
-          <p className='absolute bottom-10 left-12 right-12 z-10 text-right text-displayLarge font-semibold leading-tight text-light-onSurface drop-shadow-sm 2xl:text-[72px]'>
-            Bring your ideas to life with WebHawks
-          </p>
-        </BackgroundGradientAnimation>
+        <img
+          src={Banner}
+          alt=''
+          className='hidden h-full w-full rounded-small object-cover lg:block'
+        />
       </div>
     </>
   );
