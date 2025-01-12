@@ -15,7 +15,7 @@ import { Banner } from '../assets/assets';
 
 const Login = () => {
   const {
-    register,
+    register: LoginToAccount,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
@@ -83,7 +83,7 @@ const Login = () => {
                   key={index}
                   label={field.label}
                   name={field.name}
-                  register={register}
+                  register={LoginToAccount}
                   errors={errors}
                   type={field.type}
                   autoFocus={field.name === 'fullName' ? true : false}
@@ -93,11 +93,11 @@ const Login = () => {
               ))}
 
               <Link
-                to='/forgotPassword'
+                to='/forgot-password'
                 className='text-right link ms-1 inline-block text-light-onSurface dark:text-dark-onSurface'
               >
                 {' '}
-                Forget your password?
+                Forgot your password?
               </Link>
               <Button
                 type='submit'
