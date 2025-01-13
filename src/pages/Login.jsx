@@ -66,7 +66,7 @@ const Login = () => {
           <AuthNavbar />
           <div className='mx-auto flex w-full max-w-[480px] flex-col gap-2'>
             <h2 className='text-center font-heading text-displaySmall font-semibold text-light-onBackground dark:text-light-onPrimary'>
-              Log In Here
+              Log In
             </h2>
             <p className='mb-4 mt-1 px-2 text-center text-bodyLarge text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant'>
               Please enter your credentials to access your account. We’re glad
