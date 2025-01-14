@@ -29,7 +29,7 @@ function ForgotPassword() {
 
     const promise = account.createRecovery(
       data.email,
-      'http://localhost:5173/resetPassword',
+      `${window.location.origin}/reset-password`,
     );
 
     promise
@@ -65,13 +65,15 @@ function ForgotPassword() {
           >
             <img
               src={React}
-              className='' alt='Dark Logo'
+              className=''
+              alt='Dark Logo'
             />
           </Link>
           {isSent ? (
             <AfterDataProcessing
               buttonText='Take me Home'
               h2Text="We've send you a reset link. Please check youe email!"
+              pText='please note that the verification link is valid for 1 hour'
               link='/'
             />
           ) : (
@@ -80,7 +82,7 @@ function ForgotPassword() {
                 Forgot your password?
               </h2>
               <p className='mb-4 mt-1 px-2 text-center text-bodyLarge text-light-onSurfaceVariant dark:text-dark-onSurfaceVariant'>
-                We&apos;ll send you a reset link to reset your password
+                We&apos;ll send you a link to reset your password
               </p>
 
               <form
