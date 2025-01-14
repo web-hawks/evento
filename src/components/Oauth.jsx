@@ -7,14 +7,33 @@ import {
     FacebookIcon,
     GoogleIcon,
 } from '../assets/assets';
+/* 
+*Appwrite connection
+*/
+import { account } from '../lib/appwrite';
 
 const Oauth = () => {
+    const handleGoogleRegister = () => {
+        account.createOAuth2Session(
+          'google', 
+          `${window.location.origin}`, // Success URL (redirect after registration)
+          `${window.location.origin}/register` // Failure URL (redirect if registration fails)
+        );
+      };
+      const handleFacebookRegister = () => {
+        account.createOAuth2Session(
+          'facebook', 
+          `${window.location.origin}`, // Success URL (redirect after registration)
+          `${window.location.origin}/register` // Failure URL (redirect if registration fails)
+        );
+      };
     return (
         <div className='mb-10 flex justify-center gap-5'>
             <Button
                 variant='withIcon'
                 className='hover:scale-125 hover:bg-light-background dark:bg-dark-background dark:hover:bg-dark-background'
                 type='button'
+                onClick={handleFacebookRegister}
             >
                 <img
                     src={FacebookIcon}
@@ -26,6 +45,7 @@ const Oauth = () => {
                 variant='withIcon'
                 className='hover:scale-125 hover:bg-light-background dark:bg-dark-background dark:hover:bg-dark-background'
                 type='button'
+                onClick={handleGoogleRegister}
             >
                 <img
                     src={GoogleIcon}
